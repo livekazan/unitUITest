@@ -13,8 +13,8 @@
     <bean id="dataService" class="ru.dataService.DataService"/>
 
     <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
-        <property name="privateKey" value="6LdsCwITAAAAAP4jlKR_nu7vgG8TKjRNR7ze2es-" />
-        <property name="publicKey" value="6LdsCwITAAAAAD5UDEs1s7iojeAiZt5qz7ygS525" />
+        <property name="privateKey" value="6LdsCwITAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+        <property name="publicKey" value="6LdsCwITAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
         <property name="includeNoscript" value="false" />
     </bean>
 
@@ -34,7 +34,7 @@
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
-            <value>java:comp/env/jdbc/ecologyDB</value>
+            <value>java:comp/env/jdbc/DB</value>
         </property>
     </bean>
 
