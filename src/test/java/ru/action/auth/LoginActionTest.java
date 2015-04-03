@@ -41,7 +41,7 @@ public class LoginActionTest extends ActionTestBase {
 
     @Test
     public void testProcess() throws Exception {
-        assertEquals(getActionResult(), ActionConstant.SUCCESS_OPERATOR);
+        assertEquals(ActionConstant.SUCCESS_OPERATOR,getActionResult());
     }
 
     @Test
