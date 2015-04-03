@@ -44,9 +44,9 @@ public class LoginAction extends CommonActionBase implements ServletRequestAware
         User user  = getDataService().findUser(login, password);
 
 
-        if(checkUser(user)) return ActionConstant.M_NO_ENTITY;
+        if(!checkUser(user)) return ActionConstant.M_NO_ENTITY;
 
-        if(isActiveUser(user)) return ActionConstant.M_INACTIVE;
+        if(!isActiveUser(user)) return ActionConstant.M_INACTIVE;
 
         setSession(addToSession(getSession(), user));
 

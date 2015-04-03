@@ -1,5 +1,7 @@
 package ru.action.auth;
 
+import net.tanesha.recaptcha.ReCaptchaImpl;
+import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -16,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class LoginActionTest extends JunitActionTestBase {
 
@@ -34,10 +38,31 @@ public class LoginActionTest extends JunitActionTestBase {
     public void testProcess() throws Exception {
         initDataservices();
         action.setDataService(getDataService());
+
         getTransactomatic().perform(new UnitOfWork() {
             public void work() throws Exception {
                 user = PopulateUtil.popUser(getDataService(), shaPass);
-                setActionResult( action.process());
+            }
+        });
+
+        ReCaptchaResponse reCaptchaResponse = mock(ReCaptchaResponse.class);
+        when(reCaptchaResponse.isValid()).thenReturn(true);
+        ReCaptchaImpl reCaptcha = mock(ReCaptchaImpl.class);
+        when(reCaptcha.checkAnswer("123","123abcd")).thenReturn(reCaptchaResponse);
+        action.setReCaptcha(reCaptcha);
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addParameter("g-recaptcha-response","123abcd");
+        request.setRemoteAddr("123");
+        action.setServletRequest(request);
+
+        action.setLogin(user.getLogin());
+        action.setPassword(user.getPassword());
+
+        getTransactomatic().perform(new UnitOfWork() {
+            public void work() throws Exception {
+                user = PopulateUtil.popUser(getDataService(), shaPass);
+                setActionResult(action.process());
             }
         });
         assertEquals(ActionConstant.SUCCESS_OPERATOR, getActionResult());
