@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Вход в систему</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+</head>
+<style type="text/css">
+  input.form-control, button.form-control{ margin-top: 5px; }
+  div.container { margin-top: 10px; }
+  div.alert-danger {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 5px 0 0 0;
+  }
+</style>
+<body>
+  <!--[if lt IE 7]>
+      <p class="browsehappy">Вы используете <strong>устаревшую</strong> версию браузера.
+        Пожалуйста, <a href="http://browsehappy.com/">обновите ваш браузер</a>
+        для продолжения работы.</p>
+  <![endif]-->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Вход в систему</h3>
+          </div>
+          <div class="panel-body">
+            <form action="auth">
+              <input type="text" name="login" class="form-control" placeholder="Логин">
+              <input type="password" name="password" class="form-control" placeholder="Пароль">
+                <div class="g-recaptcha text-center" style="padding: 10px 12px;" data-sitekey="6LdsCwITAAAAAD5UDEs1s7iojeAiZt5qz7ygS525"></div>
+              <button type="submit" class="form-control btn btn-primary">Войти</button>
+              <div id="errorBlock" style="display: none" class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Ошибка:</strong> <span id="errorMsg"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+  <script type="text/javascript">
+    var errorBlock = $('#errorBlock');
+    var errorMsg = $('#errorMsg');
+
+    $(function(){
+      var m = getUrlParameter('m');
+      if(m && parseInt(m)>=0) {
+        errorMsg.text(getErrorMessages(m));
+        errorBlock.show();
+      }
+    });
+
+    function getUrlParameter(sParam){
+      var sPageURL = window.location.search.substring(1);
+      var sURLVariables = sPageURL.split('&');
+      for (var i = 0; i < sURLVariables.length; i++){
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam){
+          return sParameterName[1];
+        }
+      }
+    }
+
+    function getErrorMessages(m){
+      return ['',
+              'Поля незаполнены',
+              'Пользователь не найден',
+              'Пользователь заблокирован'][m];
+    }
+  </script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+</body>
+</html>

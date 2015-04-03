@@ -1,0 +1,109 @@
+.modal-footer {   border-top: 0px; }
+
+#side-menu a.activeMarkBlue {
+    background-image: linear-gradient(to right, #337ab7 10px, #eeeeee 10px);
+}
+
+#side-menu a.activeMarkGreen {
+    background-image: linear-gradient(to right, #33b77a 10px, #eeeeee 10px);
+}
+
+#side-menu a.activeMarkBlack {
+    background-image: linear-gradient(to right, #333333 10px, #eeeeee 10px);
+}
+
+#side-menu a.activeMarkInfo {
+    background-image: linear-gradient(to right, #61c3ff 10px, #eeeeee 10px);
+}
+
+#side-menu a.activeMarkRed {
+    background-image: linear-gradient(to right, #b77a33 10px, #eeeeee 10px);
+}
+
+#side-menu a.activeMarkYellow {
+    background-image: linear-gradient(to right, #99ff00 10px, #eeeeee 10px);
+}
+
+#side-menu a.activeMarkNone {
+    background-color: #eeeeee;
+}
+
+#phoneNumber {
+    border-radius: 4px 0 0 4px;
+}
+
+td.tableTitle {
+    width: 30%;
+    font-weight: bold;
+}
+
+.media img {
+    width: 64px;
+    height: 64px;
+}
+
+.full {
+    width: 100%;
+}
+
+.marker {
+    padding: 2px 4px;
+    margin-bottom: 2px;
+}
+
+.table {
+     text-align: center;
+ }
+
+.removeIcon {
+    color: red;
+    padding: 2px 4px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 1.5em;
+    border: 1px solid red;
+}
+
+.paginationLeft {
+    margin: 15px 0 0 15px;
+}
+
+.paginationRight {
+    margin: 15px 15px 15px 0;
+}
+
+a.colorRed {
+    background-color: #e0e0e0 !important;
+    border-color: #dbdbdb !important;
+}
+
+.bootstrap-switch-label{
+    font-weight: bold;
+}
+
+textarea{
+    resize: vertical;
+}
+
+.inactiveUserColor{
+    color: lightgray;
+}
+
+.textNotRead {
+    color: #ccc;
+}
+
+li a.text-nav-collapse{
+    color: #2C3E50;
+}
+
+label.answer-pick {
+    margin: 0;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+label.answer-pick:hover {
+    cursor: pointer;
+    background-color: #efefef;
+}
