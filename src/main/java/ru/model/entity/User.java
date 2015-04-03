@@ -32,13 +32,11 @@ public class User extends Identifiable {
     @Column(columnDefinition = "bit(1) default false")
     private boolean active;
 
-
     /**
      * время последнего действия в системе
      */
 
     private Date lastActiveTime;
-
 
     /**
      * Тип роли

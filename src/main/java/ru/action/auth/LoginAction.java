@@ -12,6 +12,7 @@ import ru.model.entity.User;
 import ru.model.enumPack.Role;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Логин в систему
@@ -31,9 +32,7 @@ public class LoginAction extends CommonActionBase implements ServletRequestAware
     @Override
     public String process() throws Exception {
 
-        if(login==null || login.isEmpty() || password==null || password.isEmpty() || request==null || request.getParameter("g-recaptcha-response")==null || request.getParameter("g-recaptcha-response").isEmpty()){
-            return ActionConstant.M_EMPTY_PARAM;
-        }
+        if(!checkParam(login,password,request)) return ActionConstant.M_EMPTY_PARAM;
 
         ReCaptchaResponse response = reCaptcha.checkAnswer(request.getRemoteAddr(),request.getParameter("g-recaptcha-response"));
 
@@ -42,16 +41,15 @@ public class LoginAction extends CommonActionBase implements ServletRequestAware
         }
 
         //поиск
-        User user  = getDataService().findUser(login,password);
-        if( user == null || user.getRole() ==null){
-            return ActionConstant.M_NO_ENTITY;
-        }
-        if(!user.isActive()){
-            return ActionConstant.M_INACTIVE;
-        }
+        User user  = getDataService().findUser(login, password);
 
-        //добавление в сессию
-        getSession().put(SessionConstant.USER,user);
+
+        if(checkUser(user)) return ActionConstant.M_NO_ENTITY;
+
+        if(isActiveUser(user)) return ActionConstant.M_INACTIVE;
+
+        setSession(addToSession(getSession(), user));
+
 
         if(user.getRole().equals(Role.admin)){
             return ActionConstant.SUCCESS_ADMIN;
@@ -59,6 +57,34 @@ public class LoginAction extends CommonActionBase implements ServletRequestAware
             return ActionConstant.SUCCESS_OPERATOR;
         }
 
+    }
+
+    public Map<String, Object> addToSession(Map<String, Object> session,User user) {
+        //добавление в сессию
+        if(session!=null){
+            session.put(SessionConstant.USER, user);
+        }
+        return session;
+    }
+
+    public boolean checkUser(User user) {
+        if( user == null || user.getRole() ==null){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isActiveUser(User user) {
+        return user.isActive();
+    }
+
+    public boolean checkParam(String login,String password,HttpServletRequest request) {
+        if(login==null || login.isEmpty()
+                || password==null || password.isEmpty()
+                || request==null || request.getParameter("g-recaptcha-response")==null || request.getParameter("g-recaptcha-response").isEmpty()){
+            return false;
+        }
+        return true;
     }
 
     @Override
