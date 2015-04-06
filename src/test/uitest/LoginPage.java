@@ -1,16 +1,20 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
+import ru.util.AbstractHangmanTest;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class LoginPage{
+public class LoginPage extends AbstractHangmanTest {
 
     @Test
     public void visibleButtonLogin(){
-        open("http://uitest.com:8080/unitTest/login.action");
+
+        open("/unitTest/login.action");
         $(By.name("login")).setValue("user");
-        $(By.id("recaptcha-anchor")).click();
         $(By.name("password")).setValue("1").pressEnter();
+        $(By.id("errorMsg")).shouldHave((text("Поля незаполнены")));
     }
+
 }

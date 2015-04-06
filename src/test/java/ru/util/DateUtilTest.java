@@ -8,6 +8,6 @@ public class DateUtilTest extends TestCase {
 
     @Test
     public void testMillisecToStrDate() throws Exception {
-        assertEquals("1 min, 33 sec",DateUtil.nanosecToStrDate(93302427926l));
+        assertEquals("1 мин, 33 сек",DateUtil.nanosecToStrDate(93302427926l));
     }
 }
