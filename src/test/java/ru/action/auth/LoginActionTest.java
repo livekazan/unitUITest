@@ -45,16 +45,22 @@ public class LoginActionTest extends JunitActionTestBase {
             }
         });
 
+
+
         ReCaptchaResponse reCaptchaResponse = mock(ReCaptchaResponse.class);
         when(reCaptchaResponse.isValid()).thenReturn(true);
+
         ReCaptchaImpl reCaptcha = mock(ReCaptchaImpl.class);
         when(reCaptcha.checkAnswer("123","123abcd")).thenReturn(reCaptchaResponse);
+
         action.setReCaptcha(reCaptcha);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("g-recaptcha-response","123abcd");
         request.setRemoteAddr("123");
         action.setServletRequest(request);
+
+
 
         action.setLogin(user.getLogin());
         action.setPassword(user.getPassword());
@@ -69,15 +75,6 @@ public class LoginActionTest extends JunitActionTestBase {
     }
 
     @Test
-    public void testParams() throws Exception {
-        String login = "myLogin";
-        String password ="myPasswordHash";
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addParameter("g-recaptcha-response", "123abcd");
-        assertEquals(true, action.checkParam(login, password, request));
-    }
-
-    @Test
     public void testParamsNullLogin() throws Exception {
         String password ="myPasswordHash";
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -89,6 +86,15 @@ public class LoginActionTest extends JunitActionTestBase {
     public void testParamsNullRequest() throws Exception {
         String password ="myPasswordHash";
         assertEquals(false, action.checkParam(null, password, null));
+    }
+
+    @Test
+    public void testParams() throws Exception {
+        String login = "myLogin";
+        String password ="myPasswordHash";
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.addParameter("g-recaptcha-response", "123abcd");
+        assertEquals(true, action.checkParam(login, password, request));
     }
 
     @Test
@@ -127,16 +133,5 @@ public class LoginActionTest extends JunitActionTestBase {
         sessionTest.put(SessionConstant.USER, user);
         assertEquals(sessionTest, action.addToSession(new HashMap<>(), user));
     }
-
-    @Test
-    public void test() throws Exception {
-        user=new User();
-        user.setActive(true);
-        user.setRole(Role.admin);
-        Map<String, Object> sessionTest = new HashMap<>();
-        sessionTest.put(SessionConstant.USER,user);
-        assertEquals(sessionTest, action.addToSession(new HashMap<>(), user));
-    }
-
 
 }
