@@ -1,12 +1,11 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
-import ru.util.AbstractHangmanTest;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class LoginPage extends AbstractHangmanTest {
+public class LoginPage {
 
     @Test
     public void visibleButtonLogin(){
