@@ -21,7 +21,6 @@
         </sql>
     </changeSet>
 
-
     <changeSet id="5" author="rbulatov" >
         <comment>
             изменение размера
