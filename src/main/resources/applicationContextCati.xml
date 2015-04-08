@@ -38,6 +38,11 @@
         </property>
     </bean>
 
+    <bean id="myLiquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog" value="classpath:/liquibase/db.changelog-master.xml" />
+    </bean>
+
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
           depends-on="entityManagerFactory">
         <property name="entityManagerFactory" ref="entityManagerFactory" />

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="4" author="rbulatov" >
+        <comment>
+            Создание тестовой таблицы
+        </comment>
+        <sql>
+            CREATE TABLE `test_liguid_base` (
+            `id` bigint(20) NOT NULL,
+            `alt` varchar(255) DEFAULT NULL,
+            `url_big1` varchar(200) DEFAULT NULL,
+            `url_small` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="5" author="rbulatov" >
+        <comment>
+            изменение размера
+        </comment>
+        <modifyDataType
+                tableName="test_liguid_base"
+                columnName="alt"
+                newDataType="varchar(3) DEFAULT '123'"
+                />
+    </changeSet>
+
+    <changeSet id="6" author="rbulatov" >
+        <comment>
+            изменение размера
+        </comment>
+        <addDefaultValue tableName="test_liguid_base" columnName="url_big1" defaultValue="http:\\" />
+    </changeSet>
+
+</databaseChangeLog>
