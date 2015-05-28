@@ -55,16 +55,13 @@
 
         <action name="login" class="ru.action.IndexAction">
             <interceptor-ref name="publicInterceptorStack"/>
+            <result>/admin.html</result>
+        </action>
+
+        <action name="showAdmin" class="ru.action.ShowAdmin">
             <result>/login.html</result>
         </action>
 
-        <action name="showAdmin" class="ru.action.IndexAction">
-            <result>/viewAdmin/admin.html</result>
-        </action>
-
-        <action name="showOperator" class="ru.action.IndexAction">
-            <result>/viewOperator/operator.html</result>
-        </action>
 
         <action name="auth" class="ru.action.auth.LoginAction">
             <interceptor-ref name="publicInterceptorStack"/>
@@ -98,7 +95,6 @@
                 <param name="actionName">login</param>
             </result>
         </action>
-
     </package>
 
 </struts>

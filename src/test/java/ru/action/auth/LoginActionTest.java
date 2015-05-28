@@ -17,7 +17,7 @@ import ru.model.enumPack.Role;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,8 +44,6 @@ public class LoginActionTest extends JunitActionTestBase {
                 user = PopulateUtil.popUser(getDataService(), shaPass);
             }
         });
-
-
 
         ReCaptchaResponse reCaptchaResponse = mock(ReCaptchaResponse.class);
         when(reCaptchaResponse.isValid()).thenReturn(true);
@@ -74,7 +72,7 @@ public class LoginActionTest extends JunitActionTestBase {
         assertEquals(ActionConstant.SUCCESS_OPERATOR, getActionResult());
     }
 
-    @Test
+  /*  @Test
     public void testParamsNullLogin() throws Exception {
         String password ="myPasswordHash";
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -96,7 +94,7 @@ public class LoginActionTest extends JunitActionTestBase {
         request.addParameter("g-recaptcha-response", "123abcd");
         assertEquals(true, action.checkParam(login, password, request));
     }
-
+*/
     @Test
     public void testCheckUser() throws Exception {
         user= new User();
@@ -133,5 +131,19 @@ public class LoginActionTest extends JunitActionTestBase {
         sessionTest.put(SessionConstant.USER, user);
         assertEquals(sessionTest, action.addToSession(new HashMap<>(), user));
     }
+
+    @Test
+    public void testPasswordMoreGiven() throws Exception {
+        int givenSize = 6;
+        assertTrue(action.checkPasswordLength("1234567",givenSize));
+    }
+
+    @Test
+    public void testPasswordLegthNull() throws Exception {
+        int givenSize = 6;
+        assertFalse(action.checkPasswordLength(null, givenSize));
+    }
+
+
 
 }

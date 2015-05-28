@@ -129,4 +129,9 @@ public class LoginAction extends CommonActionBase implements ServletRequestAware
     public HttpServletRequest getServletRequest() {
         return this.request;
     }
+
+    public boolean checkPasswordLength(String password, int givenSize) {
+        if(password!=null && password.length()>givenSize) return true;
+        return false;
+    }
 }
