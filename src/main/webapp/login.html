@@ -37,7 +37,7 @@
             <h3 class="panel-title">Вход в систему</h3>
           </div>
           <div class="panel-body">
-            <form action="auth">
+            <form id="loginForm" action="auth">
               <input type="text" name="login" class="form-control" placeholder="Логин">
               <input type="password" name="password" class="form-control" placeholder="Пароль">
                 <div class="g-recaptcha" data-sitekey="6LeR4wQTAAAAAOKbNayOC4KsVhKG4-dyPtZkT9zs"></div>
@@ -58,6 +58,7 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
   <script type="text/javascript">
+      var loginForm = $('#loginForm');
     var errorBlock = $('#errorBlock');
     var errorMsg = $('#errorMsg');
 
@@ -67,6 +68,19 @@
         errorMsg.text(getErrorMessages(m));
         errorBlock.show();
       }
+
+        loginForm.submit(function(){
+            var login = $('input[name="login"]').eq(0).val();
+            var password = $('input[name="password"]').eq(0).val();
+
+            if(!login || !password){
+                errorMsg.text('Заполните все поля!');
+                errorBlock.show();
+                return false;
+            }
+
+            return true;
+        });
     });
 
     function getUrlParameter(sParam){
