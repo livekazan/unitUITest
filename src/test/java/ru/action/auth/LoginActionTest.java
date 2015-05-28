@@ -1,25 +1,16 @@
 package ru.action.auth;
 
-import net.tanesha.recaptcha.ReCaptchaImpl;
-import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
-import ru.action.constant.ActionConstant;
+import ru.action.JunitActionTestBase;
 import ru.action.constant.SessionConstant;
 import ru.action.populate.PasswordGenerator;
-import ru.action.populate.PopulateUtil;
-import ru.action.wraps.JunitActionTestBase;
-import ru.action.wraps.UnitOfWork;
 import ru.model.entity.User;
 import ru.model.enumPack.Role;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static junit.framework.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class LoginActionTest extends JunitActionTestBase {
 
@@ -35,44 +26,6 @@ public class LoginActionTest extends JunitActionTestBase {
     }
 
     @Test
-    public void testProcess() throws Exception {
-        initDataservices();
-        action.setDataService(getDataService());
-
-        getTransactomatic().perform(new UnitOfWork() {
-            public void work() throws Exception {
-                user = PopulateUtil.popUser(getDataService(), shaPass);
-            }
-        });
-
-        ReCaptchaResponse reCaptchaResponse = mock(ReCaptchaResponse.class);
-        when(reCaptchaResponse.isValid()).thenReturn(true);
-
-        ReCaptchaImpl reCaptcha = mock(ReCaptchaImpl.class);
-        when(reCaptcha.checkAnswer("123","123abcd")).thenReturn(reCaptchaResponse);
-
-        action.setReCaptcha(reCaptcha);
-
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addParameter("g-recaptcha-response","123abcd");
-        request.setRemoteAddr("123");
-        action.setServletRequest(request);
-
-
-
-        action.setLogin(user.getLogin());
-        action.setPassword(user.getPassword());
-
-        getTransactomatic().perform(new UnitOfWork() {
-            public void work() throws Exception {
-                user = PopulateUtil.popUser(getDataService(), shaPass);
-                setActionResult(action.process());
-            }
-        });
-        assertEquals(ActionConstant.SUCCESS_OPERATOR, getActionResult());
-    }
-
-  /*  @Test
     public void testParamsNullLogin() throws Exception {
         String password ="myPasswordHash";
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -94,7 +47,7 @@ public class LoginActionTest extends JunitActionTestBase {
         request.addParameter("g-recaptcha-response", "123abcd");
         assertEquals(true, action.checkParam(login, password, request));
     }
-*/
+
     @Test
     public void testCheckUser() throws Exception {
         user= new User();
@@ -143,7 +96,5 @@ public class LoginActionTest extends JunitActionTestBase {
         int givenSize = 6;
         assertFalse(action.checkPasswordLength(null, givenSize));
     }
-
-
 
 }

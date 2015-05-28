@@ -1,12 +1,12 @@
 package ru.model.entity;
 
+import org.hibernate.annotations.Cascade;
+import ru.model.entity.directory.City;
 import ru.model.enumPack.Role;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /*
@@ -43,6 +43,15 @@ public class User extends Identifiable {
      */
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    /*город*/
+    @ManyToOne(fetch = FetchType.LAZY)
+    private City city;
+
+
+    @OneToMany(mappedBy ="user",fetch = FetchType.LAZY)
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+    private List<Token> tokens;
 
 
     public String getLogin() {
@@ -94,4 +103,19 @@ public class User extends Identifiable {
         this.lastActiveTime = lastActiveTime;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
+    }
 }
