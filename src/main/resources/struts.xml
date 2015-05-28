@@ -55,11 +55,11 @@
 
         <action name="login" class="ru.action.IndexAction">
             <interceptor-ref name="publicInterceptorStack"/>
-            <result>/admin.html</result>
+            <result>/login.html</result>
         </action>
 
         <action name="showAdmin" class="ru.action.ShowAdmin">
-            <result>/login.html</result>
+            <result>/admin.html</result>
         </action>
 
 
