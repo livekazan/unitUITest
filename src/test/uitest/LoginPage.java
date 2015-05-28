@@ -15,4 +15,27 @@ public class LoginPage {
         $(By.id("errorMsg")).shouldHave((text("Поля незаполнены")));
     }
 
+    @Test
+    public void emptyPassword(){
+        open("/unitUITest/login");
+        $(By.name("login")).setValue("user").pressEnter();
+        $(By.id("errorMsg")).shouldHave((text("Заполните все поля!")));
+    }
+
+
+    @Test
+    public void emptyLogin(){
+        open("/unitUITest/login");
+        $(By.name("password")).setValue("1").pressEnter();
+        $(By.id("errorMsg")).shouldHave((text("Заполните все поля!")));
+    }
+
+    @Test
+    public void allEmpty(){
+        open("/unitUITest/login");
+        $(By.name("password")).setValue("").pressEnter();
+        $(By.id("errorMsg")).shouldHave((text("Заполните все поля!")));
+    }
+
+
 }
