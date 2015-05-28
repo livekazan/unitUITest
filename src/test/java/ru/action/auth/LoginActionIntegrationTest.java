@@ -25,7 +25,6 @@ public class LoginActionIntegrationTest extends IntegrationActionTestBase {
     public void setUp() throws Exception {
         action = new LoginAction();
         action.setSession(getSession());
-
         action.setDataService(getDataService());
     }
 
