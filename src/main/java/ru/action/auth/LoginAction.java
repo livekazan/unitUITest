@@ -27,8 +27,6 @@ public class LoginAction extends CommonActionBase implements ServletRequestAware
     private ReCaptchaImpl reCaptcha;
 
 
-
-
     @Override
     public String process() throws Exception {
 
@@ -43,13 +41,11 @@ public class LoginAction extends CommonActionBase implements ServletRequestAware
         //поиск
         User user  = getDataService().findUser(login, password);
 
-
         if(!checkUser(user)) return ActionConstant.M_NO_ENTITY;
 
         if(!isActiveUser(user)) return ActionConstant.M_INACTIVE;
 
         setSession(addToSession(getSession(), user));
-
 
         if(user.getRole().equals(Role.admin)){
             return ActionConstant.SUCCESS_ADMIN;

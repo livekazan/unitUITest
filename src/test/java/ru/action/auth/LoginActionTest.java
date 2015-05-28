@@ -92,7 +92,7 @@ public class LoginActionTest extends JunitActionTestBase {
     }
 
     @Test
-    public void testPasswordLegthNull() throws Exception {
+    public void testPasswordLengthNull() throws Exception {
         int givenSize = 6;
         assertFalse(action.checkPasswordLength(null, givenSize));
     }
